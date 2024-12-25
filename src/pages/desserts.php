@@ -1,10 +1,10 @@
 <?php
-include("../includes/db.php");
+include_once("../includes/db.php");
 
 include_once("../controllers/recipes.php");
 
 $recipesController = new RecipesController($db);
-$recipes = $recipesController->getAll();
+$recipes = $recipesController->getByCategory('desert');
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ $recipes = $recipesController->getAll();
 
     <link rel="stylesheet" href="../assets/styles.css" />
 
-    <title>AjiBook</title>
+    <title>AjiBook - Desserts</title>
 </head>
 
 <body>
