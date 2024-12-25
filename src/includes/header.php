@@ -1,5 +1,11 @@
 <?php
+include_once('../models/user.php');
+
 $requestUrl = $_SERVER['REQUEST_URI'];
+
+session_start();
+$user = $_SESSION['user'];
+
 ?>
 
 <!-- Barre supérieure -->
@@ -13,9 +19,13 @@ $requestUrl = $_SERVER['REQUEST_URI'];
             <img src="../assets/img/search-icon.png" alt="Rechercher" />
         </button>
     </div>
-    <div class="login-button">
-        <button>Connexion</button>
-    </div>
+    <? if ($user == null): ?>
+        <div class="login-button">
+            <a href="../pages/login.php">Connexion</a>
+        </div>
+    <? else: ?>
+        <?= $user->getUsername() ?>
+    <? endif ?>
 </div>
 
 <!-- Barre de menu -->

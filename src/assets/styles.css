@@ -47,13 +47,15 @@ body {
   height: 20px;
 }
 
-.login-button button {
+.login-button a {
   padding: 8px 16px;
   border: 1px solid #000;
   border-radius: 20px;
   background-color: transparent;
   cursor: pointer;
   font-weight: bold;
+  text-decoration: none;
+  color: inherit;
 }
 
 /* Barre de menu */
