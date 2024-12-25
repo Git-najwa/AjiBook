@@ -17,10 +17,10 @@
 <!-- Barre de menu -->
 <nav class="menu">
     <ul>
-        <li><a href="#">Apéritifs</a></li>
-        <li><a href="#">Entrées</a></li>
-        <li><a href="#">Plats</a></li>
-        <li><a href="#">Desserts</a></li>
-        <li><a href="#">Boissons</a></li>
+        <li><a href="../pages/recettes.php">Apéritifs</a></li>
+        <li><a href="../pages/recettes.php">Entrées</a></li>
+        <li><a href="../pages/recettes.php">Plats</a></li>
+        <li><a href="../pages/recettes.php">Desserts</a></li>
+        <li><a href="../pages/recettes.php">Boissons</a></li>
     </ul>
 </nav>
