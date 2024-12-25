@@ -43,7 +43,7 @@ $recipes = $recipesController->getByCategory('appetizer');
         </main>
 
         <?php include('../includes/footer.php'); ?>
-        <div>
+    </div>
 </body>
 
 </html>

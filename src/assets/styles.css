@@ -1,16 +1,3 @@
-/* Déclaration de la police RenathaSignature */
-@font-face {
-  font-family: 'RenathaSignature';
-  src: url('assets/font/RenathaSignature.otf') format('opentype');
-}
-  
-/* Application de la police Gruppo (pour tout le site) */
-@font-face {
-  font-family: 'Gruppo';
-  src: url('https://fonts.googleapis.com/css2?family=Gruppo&display=swap')
-    format('woff2');
-}
-
 /* Corps du site avec la police Gruppo */
 body {
   font-family: 'Gruppo', sans-serif;
