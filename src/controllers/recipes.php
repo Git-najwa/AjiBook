@@ -47,4 +47,16 @@ class RecipesController
             );
         }, $result);
     }
+
+    public function save(Recipe $recipe)
+    {
+        $statement = $this->db->prepare('INSERT INTO recipes (title, ingredients, instructions, category, users_id) VALUES (:title, :ingredients, :instructions, :category, :users_id)');
+        $statement->execute([
+            'title' => $recipe->getTitle(),
+            'ingredients' => $recipe->getIngredients(),
+            'instructions' => $recipe->getInstructions(),
+            'category' => $recipe->getCategory(),
+            'users_id' => $recipe->getUsersId(),
+        ]);
+    }
 }
