@@ -19,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($user && password_verify($password, $user->getPassword())) {
             session_start();
             $_SESSION['user'] = $user;
+
+            header('Location: ../pages/');
         } else {
             $errorMessage = "Erreur de connexion";
         }

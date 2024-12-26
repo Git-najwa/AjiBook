@@ -28,7 +28,7 @@ $user = $_SESSION['user'];
             <button onclick="openDropdown()" class="dropbtn"><?= $user->getUsername() ?></button>
             <div id="dropdown" class="dropdown-content">
                 <a href="#">Mon profil</a>
-                <a href="#">Mes recettes</a>
+                <a href="../pages/my-recipes.php">Mes recettes</a>
                 <a href="#">Mes favoris</a>
                 <a href="../pages/logout.php">Déconnexion</a>
             </div>

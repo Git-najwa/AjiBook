@@ -48,6 +48,25 @@ class RecipesController
         }, $result);
     }
 
+    public function getByUsersId($usersId): array
+    {
+        $statement = $this->db->prepare("SELECT * FROM recipes WHERE users_id = :users_id");
+        $statement->execute(['users_id' => $usersId]);
+        $result = $statement->fetchAll();
+
+        return array_map(function ($result) {
+            return new Recipe(
+                $result['id'],
+                $result['title'],
+                $result['ingredients'],
+                $result['instructions'],
+                $result['category'],
+                $result['createdAt'],
+                $result['userId']
+            );
+        }, $result);
+    }
+
     public function getById($id): ?Recipe
     {
         $statement = $this->db->prepare("SELECT * FROM recipes WHERE id = :id");
