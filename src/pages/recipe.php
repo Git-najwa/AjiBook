@@ -1,16 +1,33 @@
 <?php
 include_once("../includes/db.php");
 
+include_once("../models/user.php");
+
 include_once("../controllers/recipes.php");
 include_once("../controllers/users.php");
+include_once("../controllers/bookmarks.php");
 
 $id = $_GET['id'];
 
 $recipesController = new RecipesController($db);
 $usersController = new UsersController($db);
+$bookmarksController = new BookmarksController($db);
 
 $recipe = $recipesController->getById($id);
 $user = $usersController->getById($recipe->getUsersId());
+
+session_start();
+$userSession = $_SESSION['user'];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($userSession == NULL) {
+        header('Location: ../pages');
+        die();
+    }
+
+    $bookmark = new Bookmark(0, 0, $recipe->getId(), $userSession->getId());
+    $bookmarksController->save($bookmark);
+}
 
 ?>
 
@@ -45,7 +62,18 @@ $user = $usersController->getById($recipe->getUsersId());
 
                 <!-- Contenu recette -->
                 <div id="recipe-content">
-                    <h1><?= $recipe->getTitle() ?></h1>
+                    <div class="title-bar">
+                        <h1><?= $recipe->getTitle() ?></h1>
+                        <? if ($userSession != null): ?>
+                            <form method="POST" action="../pages/recipe.php?id=<?= $recipe->getId() ?>">
+                                <button class="bookmark-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
+                                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                                    </svg>
+                                </button>
+                            </form>
+                        <? endif ?>
+                    </div>
                     <div id="tags">
                         <span id="category"><?= $recipe->getTranslatedCategory() ?></span>
                         <span id="author">Créé par : <?= $user->getUsername() ?></span>
@@ -95,6 +123,22 @@ $user = $usersController->getById($recipe->getUsersId());
         margin-left: 30px;
     }
 
+    .title-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .bookmark-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .bookmark-button:hover svg {
+        color: red;
+    }
+
     #tags {
         display: flex;
     }
@@ -120,6 +164,7 @@ $user = $usersController->getById($recipe->getUsersId());
         margin-left: 100px;
         padding-top: 20px;
         padding-left: 50px;
+        padding-right: 50px;
         margin-right: 50px;
         padding-bottom: 50px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

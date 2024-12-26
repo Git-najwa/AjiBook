@@ -4,7 +4,7 @@ include_once('../models/user.php');
 $requestUrl = $_SERVER['REQUEST_URI'];
 
 session_start();
-$user = $_SESSION['user'];
+$userSession = $_SESSION['user'];
 
 ?>
 
@@ -19,13 +19,13 @@ $user = $_SESSION['user'];
             <img src="../assets/img/search-icon.png" alt="Rechercher" />
         </button>
     </div>
-    <? if ($user == null): ?>
+    <? if ($userSession == null): ?>
         <div class="login-button">
             <a href="../pages/login.php">Connexion</a>
         </div>
     <? else: ?>
         <div class="dropdown">
-            <button onclick="openDropdown()" class="dropbtn"><?= $user->getUsername() ?></button>
+            <button onclick="openDropdown()" class="dropbtn"><?= $userSession->getUsername() ?></button>
             <div id="dropdown" class="dropdown-content">
                 <a href="#">Mon profil</a>
                 <a href="../pages/my-recipes.php">Mes recettes</a>

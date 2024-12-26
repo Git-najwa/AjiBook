@@ -23,8 +23,8 @@ class RecipesController
                 $result['ingredients'],
                 $result['instructions'],
                 $result['category'],
-                $result['createdAt'],
-                $result['userId']
+                $result['created_at'],
+                $result['users_id']
             );
         }, $result);
     }
@@ -42,8 +42,8 @@ class RecipesController
                 $result['ingredients'],
                 $result['instructions'],
                 $result['category'],
-                $result['createdAt'],
-                $result['userId']
+                $result['created_at'],
+                $result['users_id']
             );
         }, $result);
     }
@@ -61,8 +61,8 @@ class RecipesController
                 $result['ingredients'],
                 $result['instructions'],
                 $result['category'],
-                $result['createdAt'],
-                $result['userId']
+                $result['created_at'],
+                $result['users_id']
             );
         }, $result);
     }
@@ -83,8 +83,8 @@ class RecipesController
             $result['ingredients'],
             $result['instructions'],
             $result['category'],
-            $result['createdAt'],
-            $result['userId']
+            $result['created_at'],
+            $result['users_id']
         );
     }
 
