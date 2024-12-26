@@ -88,6 +88,25 @@ class RecipesController
         );
     }
 
+    public function getBookmarkedRecipes($usersId)
+    {
+        $statement = $this->db->prepare("SELECT * FROM bookmarks INNER JOIN recipes ON bookmarks.recipes_id = recipes.id WHERE bookmarks.users_id = :users_id");
+        $statement->execute(['users_id' => $usersId]);
+        $result = $statement->fetchAll();
+
+        return array_map(function ($result) {
+            return new Recipe(
+                $result['id'],
+                $result['title'],
+                $result['ingredients'],
+                $result['instructions'],
+                $result['category'],
+                $result['created_at'],
+                $result['users_id']
+            );
+        }, $result);
+    }
+
     public function save(Recipe $recipe)
     {
         $statement = $this->db->prepare('INSERT INTO recipes (title, ingredients, instructions, category, users_id) VALUES (:title, :ingredients, :instructions, :category, :users_id)');

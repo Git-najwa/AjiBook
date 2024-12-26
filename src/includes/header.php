@@ -29,7 +29,7 @@ $userSession = $_SESSION['user'];
             <div id="dropdown" class="dropdown-content">
                 <a href="#">Mon profil</a>
                 <a href="../pages/my-recipes.php">Mes recettes</a>
-                <a href="#">Mes favoris</a>
+                <a href="../pages/my-bookmarks.php">Mes favoris</a>
                 <a href="../pages/logout.php">Déconnexion</a>
             </div>
         </div>
