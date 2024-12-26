@@ -27,6 +27,24 @@ class UsersController
         );
     }
 
+    public function getById($id): ?User
+    {
+        $statement = $this->db->prepare('SELECT * FROM users WHERE id = :id');
+        $statement->execute(['id' => $id]);
+        $result = $statement->fetch();
+
+        if (!$result) {
+            return null;
+        }
+
+        return new User(
+            $result['id'],
+            $result['username'],
+            $result['email'],
+            $result['password']
+        );
+    }
+
     public function save(User $user)
     {
         $statement = $this->db->prepare('INSERT INTO users (username, email, password) VALUES (:username, :email, :password)');

@@ -48,6 +48,27 @@ class RecipesController
         }, $result);
     }
 
+    public function getById($id): ?Recipe
+    {
+        $statement = $this->db->prepare("SELECT * FROM recipes WHERE id = :id");
+        $statement->execute(['id' => $id]);
+        $result = $statement->fetch();
+
+        if (!$result) {
+            return null;
+        }
+
+        return new Recipe(
+            $result['id'],
+            $result['title'],
+            $result['ingredients'],
+            $result['instructions'],
+            $result['category'],
+            $result['createdAt'],
+            $result['userId']
+        );
+    }
+
     public function save(Recipe $recipe)
     {
         $statement = $this->db->prepare('INSERT INTO recipes (title, ingredients, instructions, category, users_id) VALUES (:title, :ingredients, :instructions, :category, :users_id)');
