@@ -25,7 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     move_uploaded_file($_FILES['imageUpload']['tmp_name'], $path);
 
     $recipe = new Recipe(0, $title, $ingredients, $instructions, $category, 0, $path, $usersId);
-    $recipesController->save($recipe);
+    $id = $recipesController->save($recipe);
+
+    header('Location: ../pages/recipe.php?id=' . $id);
 }
 
 ?>
