@@ -20,7 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $category = $_POST['category'];
     $usersId = $user->getId();
 
-    $recipe = new Recipe(0, $title, $ingredients, $instructions, $category, 0, $usersId);
+    $extension = explode('.', $_FILES['imageUpload']['name'])[1];
+    $path = '../uploads/' . basename(md5($_FILES['imageUpload']['tmp_name'])) . '.' . $extension;
+    move_uploaded_file($_FILES['imageUpload']['tmp_name'], $path);
+
+    $recipe = new Recipe(0, $title, $ingredients, $instructions, $category, 0, $path, $usersId);
     $recipesController->save($recipe);
 }
 
@@ -48,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php include('../includes/header.php'); ?>
 
         <main class="main">
-            <form id="recipeForm" method="POST">
+            <form id="recipeForm" method="POST" enctype="multipart/form-data">
                 <div class="form-left">
                     <div class="form-group">
                         <label for="title">Titre :</label>

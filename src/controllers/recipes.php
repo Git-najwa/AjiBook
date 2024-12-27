@@ -24,6 +24,7 @@ class RecipesController
                 $result['instructions'],
                 $result['category'],
                 $result['created_at'],
+                $result['image_url'],
                 $result['users_id']
             );
         }, $result);
@@ -43,6 +44,7 @@ class RecipesController
                 $result['instructions'],
                 $result['category'],
                 $result['created_at'],
+                $result['image_url'],
                 $result['users_id']
             );
         }, $result);
@@ -62,6 +64,7 @@ class RecipesController
                 $result['instructions'],
                 $result['category'],
                 $result['created_at'],
+                $result['image_url'],
                 $result['users_id']
             );
         }, $result);
@@ -84,6 +87,7 @@ class RecipesController
             $result['instructions'],
             $result['category'],
             $result['created_at'],
+            $result['image_url'],
             $result['users_id']
         );
     }
@@ -102,6 +106,7 @@ class RecipesController
                 $result['instructions'],
                 $result['category'],
                 $result['created_at'],
+                $result['image_url'],
                 $result['users_id']
             );
         }, $result);
@@ -109,12 +114,13 @@ class RecipesController
 
     public function save(Recipe $recipe)
     {
-        $statement = $this->db->prepare('INSERT INTO recipes (title, ingredients, instructions, category, users_id) VALUES (:title, :ingredients, :instructions, :category, :users_id)');
+        $statement = $this->db->prepare('INSERT INTO recipes (title, ingredients, instructions, category, image_url, users_id) VALUES (:title, :ingredients, :instructions, :category, :image, :users_id)');
         $statement->execute([
             'title' => $recipe->getTitle(),
             'ingredients' => $recipe->getIngredients(),
             'instructions' => $recipe->getInstructions(),
             'category' => $recipe->getCategory(),
+            'image' => $recipe->getImageUrl(),
             'users_id' => $recipe->getUsersId(),
         ]);
     }

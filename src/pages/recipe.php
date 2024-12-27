@@ -77,7 +77,7 @@ foreach ($bookmarks as $bookmark) {
             <div id="main-container">
                 <div id="image-container">
                     <img
-                        src="../assets/img/acrademorue.jpg"
+                        src="<?= $recipe->getImageUrl() ?>"
                         alt="<?= $recipe->getTitle() ?>" />
                 </div>
 

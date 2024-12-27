@@ -9,6 +9,7 @@ class Recipe
     private $instructions;
     private $category;
     private $createdAt;
+    private $imageUrl;
     private $usersId;
 
     private static $categoryTranslations = array(
@@ -19,7 +20,7 @@ class Recipe
         "desert" => "Dessert"
     );
 
-    public function __construct($id, $title, $ingredients, $instructions, $category, $createdAt, $usersId)
+    public function __construct($id, $title, $ingredients, $instructions, $category, $createdAt, $imageUrl, $usersId)
     {
         $this->id = $id;
         $this->title = $title;
@@ -27,6 +28,7 @@ class Recipe
         $this->instructions = $instructions;
         $this->category = $category;
         $this->createdAt = $createdAt;
+        $this->imageUrl = $imageUrl;
         $this->usersId = $usersId;
     }
 
@@ -63,6 +65,11 @@ class Recipe
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    public function getImageUrl()
+    {
+        return $this->imageUrl;
     }
 
     public function getUsersId()
