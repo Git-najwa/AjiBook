@@ -4,7 +4,7 @@ include("../includes/db.php");
 include_once("../controllers/recipes.php");
 
 $recipesController = new RecipesController($db);
-$recipes = $recipesController->getAll();
+$recipes = $recipesController->getLatestRecipes();
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +29,20 @@ $recipes = $recipesController->getAll();
         <?php include('../includes/header.php'); ?>
 
         <main class="main">
+            <section class="section">
+                <h1 class="title">Dernières recettes ajoutées</h1>
+                <div class="card-list">
+                    <?php foreach ($recipes as $recipe): ?>
 
+                        <a href="../pages/recipe.php?id=<?= $recipe->getId() ?>" class="card-item">
+                            <img src="../assets/img/acrademorue.jpg" alt="Card Image">
+                            <span class="<?= $recipe->getCategory() ?>"><?= $recipe->getTranslatedCategory() ?></span>
+                            <h3><?= $recipe->getTitle() ?> </h3>
+                        </a>
+
+                    <?php endforeach ?>
+                </div>
+            </section>
         </main>
 
         <?php include('../includes/footer.php'); ?>
@@ -37,3 +50,14 @@ $recipes = $recipesController->getAll();
 </body>
 
 </html>
+
+<style>
+    .section {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .title {
+        margin-top: 24px;
+    }
+</style>

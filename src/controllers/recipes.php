@@ -112,6 +112,24 @@ class RecipesController
         }, $result);
     }
 
+    public function getLatestRecipes()
+    {
+        $result = $this->db->query('SELECT * FROM recipes ORDER BY created_at DESC LIMIT 20')->fetchAll();
+
+        return array_map(function ($result) {
+            return new Recipe(
+                $result['id'],
+                $result['title'],
+                $result['ingredients'],
+                $result['instructions'],
+                $result['category'],
+                $result['created_at'],
+                $result['image_url'],
+                $result['users_id']
+            );
+        }, $result);
+    }
+
     public function save(Recipe $recipe): int
     {
         $statement = $this->db->prepare('INSERT INTO recipes (title, ingredients, instructions, category, image_url, users_id) VALUES (:title, :ingredients, :instructions, :category, :image_url, :users_id)');
