@@ -23,7 +23,28 @@
 
 <style>
     .footer-logo {
-        max-width: 250px;
+        max-width: 150px;
         margin-left: 50px;
+    }
+
+    .footer {
+        font-size: 12px;
+        /* Réduit la taille de tout le texte dans le footer */
+    }
+
+    .footer h3 {
+        font-size: 14px;
+        /* Réduit la taille du texte des titres */
+    }
+
+    .footer p {
+        font-size: 12px;
+        /* Réduit la taille du texte des paragraphes */
+    }
+
+    .footer-bottom p {
+        font-size: 10px;
+        padding: 0px;
+        /* Taille encore plus petite pour le texte des droits d'auteur */
     }
 </style>

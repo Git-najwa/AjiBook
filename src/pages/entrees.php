@@ -35,7 +35,7 @@ $recipes = $recipesController->getByCategory('starter');
                     <?php foreach ($recipes as $recipe): ?>
 
                         <a href="../pages/recipe.php?id=<?= $recipe->getId() ?>" class="card-item">
-                            <img src="../assets/img/acrademorue.jpg" alt="Card Image">
+                            <img src=<?= $recipe->getImageUrl() ?> alt="Card Image">
                             <span class="<?= $recipe->getCategory() ?>"><?= $recipe->getTranslatedCategory() ?></span>
                             <h3><?= $recipe->getTitle() ?> </h3>
                         </a>
