@@ -1,26 +1,37 @@
 <?php
+// Inclusion du fichier de configuration pour la base de données
 include_once('../includes/db.php');
 
+// Inclusion des classes nécessaires pour gérer les utilisateurs
 include_once('../models/user.php');
 include_once('../controllers/users.php');
 
+// Création d'une instance du contrôleur des utilisateurs
 $usersController = new UsersController($db);
+// Initialisation d'une variable pour stocker les messages d'erreur
 $errorMessage = '';
 
+// Vérification si la requête est une méthode POST (soumission du formulaire)
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Récupération des données envoyées par le formulaire
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
 
+    // Vérification si l'un des champs est vide
     if ($username == '' || $email == '' || $password == '') {
-        $errorMessage = "Le formulaire n'est pas correct";
+        $errorMessage = "Le formulaire n'est pas correct"; // Message d'erreur si un champ est vide
     } else {
+        // Vérification si le nom d'utilisateur existe déjà dans la base de données
         $user = $usersController->getByUsername($username);
 
         if ($user != NULL) {
+            // Si le nom d'utilisateur existe déjà, afficher un message d'erreur
             $errorMessage = "Le nom d'utilisateur existe déjà";
         } else {
+            // Si le nom d'utilisateur est unique, créer un nouvel utilisateur
             $user = new User(0, $username, $email, $password);
+            // Sauvegarder le nouvel utilisateur dans la base de données
             $usersController->save($user);
         }
     }
@@ -48,30 +59,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
     <div class="main-container">
+        <!-- Inclusion de l'en-tête du site -->
         <?php include('../includes/header.php'); ?>
 
         <main class="main">
             <section>
                 <h1 class="title">Inscription</h1>
+                <!-- Formulaire d'inscription -->
                 <form action="../pages/signup.php" method="POST" class="signup-form">
+                    <!-- Champ pour le nom d'utilisateur -->
                     <label for="username">Nom d'utilisateur</label>
                     <input type="text" name="username" class="input-field" />
 
+                    <!-- Champ pour l'email -->
                     <label for="email">Email</label>
                     <input type="email" name="email" class="input-field" />
 
+                    <!-- Champ pour le mot de passe -->
                     <label for="password">Mot de passe</label>
                     <input type="password" name="password" class="input-field" />
 
+                    <!-- Affichage d'un message d'erreur si une erreur s'est produite -->
                     <? if ($errorMessage != ''): ?>
                         <p class="error-message"><?= $errorMessage ?></p>
                     <? endif ?>
 
+                    <!-- Bouton de soumission du formulaire -->
                     <button class="login-button-inscription">Créer</button>
                 </form>
             </section>
         </main>
 
+        <!-- Inclusion du pied de page du site -->
         <?php include('../includes/footer.php'); ?>
     </div>
 </body>

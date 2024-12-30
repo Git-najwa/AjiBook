@@ -1,9 +1,13 @@
 <?php
+// Inclusion du fichier de configuration de la base de données
 include_once("../includes/db.php");
 
+// Inclusion du contrôleur de recettes
 include_once("../controllers/recipes.php");
 
+// Création d'une instance du contrôleur RecipesController avec la connexion à la base de données
 $recipesController = new RecipesController($db);
+// Récupération des recettes de la catégorie "appetizer" (apéritifs)
 $recipes = $recipesController->getByCategory('appetizer');
 ?>
 
@@ -26,14 +30,17 @@ $recipes = $recipesController->getByCategory('appetizer');
 
 <body>
     <div class="main-container">
+        <!-- Inclusion du fichier d'en-tête (header) -->
         <?php include('../includes/header.php'); ?>
 
         <main class="main">
             <section class="section">
                 <h1 class="title">Recettes appéritif ou buffet</h1>
+                <!-- Liste des cartes de recettes -->
                 <div class="card-list">
                     <?php foreach ($recipes as $recipe): ?>
 
+                        <!-- Lien vers la page détaillée de la recette -->
                         <a href="../pages/recipe.php?id=<?= $recipe->getId() ?>" class="card-item">
                             <img src=<?= $recipe->getImageUrl() ?> alt="Card Image">
                             <span class="<?= $recipe->getCategory() ?>"><?= $recipe->getTranslatedCategory() ?></span>
@@ -44,7 +51,7 @@ $recipes = $recipesController->getByCategory('appetizer');
                 </div>
             </section>
         </main>
-
+        <!-- Inclusion du fichier de pied de page (footer) -->
         <?php include('../includes/footer.php'); ?>
     </div>
 </body>

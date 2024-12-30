@@ -1,32 +1,40 @@
 <?php
+// Inclusion des fichiers nécessaires pour la base de données et la logique des recettes
 include_once("../includes/db.php");
-
 include_once("../controllers/recipes.php");
 include_once('../models/user.php');
 
 session_start();
+
+// Vérification si l'utilisateur est connecté
 $user = $_SESSION['user'];
 if ($user == NULL) {
     header('Location: ../pages');
     die();
 }
 
+// Création d'une instance du contrôleur de recettes
 $recipesController = new RecipesController($db);
 
+// Traitement du formulaire lorsqu'une requête POST est reçu
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Récupération des données envoyées par le formulaire
     $title = $_POST['title'];
     $ingredients = $_POST['ingredients'];
     $instructions = $_POST['instructions'];
     $category = $_POST['category'];
     $usersId = $user->getId();
 
+    // Traitement de l'image téléchargée
     $extension = explode('.', $_FILES['imageUpload']['name'])[1];
     $path = '../uploads/' . basename(md5($_FILES['imageUpload']['tmp_name'])) . '.' . $extension;
     move_uploaded_file($_FILES['imageUpload']['tmp_name'], $path);
 
+    // Création d'une nouvelle instance de la recette avec les données soumises
     $recipe = new Recipe(0, $title, $ingredients, $instructions, $category, 0, $path, $usersId);
+    // Sauvegarde de la recette dans la base de données
     $id = $recipesController->save($recipe);
-
+    // Redirection vers la page de la recette après l'enregistrement
     header('Location: ../pages/recipe.php?id=' . $id);
 }
 
@@ -51,10 +59,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
     <div class="main-container">
+        <!-- Inclusion de l'en-tête -->
         <?php include('../includes/header.php'); ?>
 
         <main class="main">
             <h1 class="title">Nouvelle recette</h1>
+            <!-- Formulaire de création de recette -->
             <form id="recipeForm" method="POST" enctype="multipart/form-data">
                 <div class="form-left">
                     <div class="form-group">
@@ -62,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <input type="text" id="title" name="title" placeholder="Titre de la recette" required>
                     </div>
                     <div class="form-group">
+                        <!-- Choix de la catégorie de la recette -->
                         <div>Catégorie :</div>
                         <div class="categories">
                             <fieldset class="category">
@@ -86,10 +97,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </fieldset>
                         </div>
                     </div>
+                    <!-- Ingrédients de la recette -->
                     <div class="form-group">
                         <label for="ingredients">Ingrédients :</label>
                         <input type="text" id="ingredients" name="ingredients" placeholder="Ex : 2 œufs, 100g de sucre" required>
                     </div>
+                    <!-- Téléversement de l'image de la recette -->
                     <div class="form-group image-upload">
                         <label for="imageUpload">Téléverser une image :</label>
                         <div class="image-placeholder">
@@ -97,16 +110,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
                 </div>
+                <!-- Instructions de la recette -->
                 <div class="form-right">
                     <div class="form-group">
                         <label for="instructions">Recette :</label>
                         <textarea id="instructions" name="instructions" placeholder="Décrivez les étapes de la recette ici..." rows="10" required></textarea>
                     </div>
+                    <!-- Bouton de soumission -->
                     <button type="submit" class="submit-btn">Publier</button>
                 </div>
             </form>
         </main>
 
+        <!-- Inclusion du pied de page -->
         <?php include('../includes/footer.php'); ?>
     </div>
 </body>
@@ -114,6 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </html>
 
 <style>
+    /* Définition des variables de couleurs pour le design */
     :root {
         --background-color: #f8f8f8;
         --container-bg-color: #ffffff;
@@ -132,6 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         --image-placeholder-hover-border: #ebb22f;
     }
 
+    /* Style du formulaire de création de recette */
     #recipeForm {
         display: flex;
         justify-content: space-between;

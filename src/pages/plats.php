@@ -1,9 +1,13 @@
 <?php
+// Inclusion du fichier de configuration de la base de données
 include_once("../includes/db.php");
 
+// Inclusion du contrôleur de recettes
 include_once("../controllers/recipes.php");
 
+// Création d'une instance du contrôleur RecipesController avec la connexion à la base de données
 $recipesController = new RecipesController($db);
+// Récupération des recettes de la catégorie "appetizer" (apéritifs)
 $recipes = $recipesController->getByCategory('main-course');
 ?>
 
@@ -26,6 +30,7 @@ $recipes = $recipesController->getByCategory('main-course');
 
 <body>
     <div class="main-container">
+        <!-- Inclusion du fichier d'en-tête (header) -->
         <?php include('../includes/header.php'); ?>
 
         <main class="main">
@@ -45,6 +50,7 @@ $recipes = $recipesController->getByCategory('main-course');
             </section>
         </main>
 
+        <!-- Inclusion du fichier de pied de page (footer) -->
         <?php include('../includes/footer.php'); ?>
     </div>
 </body>

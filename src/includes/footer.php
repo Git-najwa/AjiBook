@@ -7,9 +7,7 @@
 
             </div>
         </div>
-        <div>
 
-        </div>
         <div>
             <h3>A propos</h3>
             <p>AjiBook est né du besoin de créer une plateforme où les amateurs de cuisine peuvent partager et organiser leurs recettes préférées, en mettant en avant la diversité des saveurs du monde entier.</p>
@@ -22,29 +20,30 @@
 </footer>
 
 <style>
+    /* Style pour le logo du footer */
     .footer-logo {
         max-width: 150px;
         margin-left: 50px;
     }
 
+    /* Style général pour le footer */
     .footer {
         font-size: 12px;
-        /* Réduit la taille de tout le texte dans le footer */
     }
 
+    /* Style pour les titres du footer */
     .footer h3 {
         font-size: 14px;
-        /* Réduit la taille du texte des titres */
     }
 
+    /* Style pour les paragraphes du footer */
     .footer p {
         font-size: 12px;
-        /* Réduit la taille du texte des paragraphes */
     }
 
+    /* Style spécifique pour le bas du footer */
     .footer-bottom p {
         font-size: 10px;
         padding: 0px;
-        /* Taille encore plus petite pour le texte des droits d'auteur */
     }
 </style>

@@ -1,9 +1,13 @@
 <?php
+// Inclusion du fichier de configuration de la base de données
 include("../includes/db.php");
 
+// Inclusion du contrôleur des recettes
 include_once("../controllers/recipes.php");
 
+// Création d'une instance de RecipesController avec la connexion à la base de données
 $recipesController = new RecipesController($db);
+// Récupération des dernières recettes ajoutées
 $recipes = $recipesController->getLatestRecipes();
 ?>
 
@@ -26,10 +30,12 @@ $recipes = $recipesController->getLatestRecipes();
 
 <body>
     <div class="main-container">
+        <!-- Inclusion de l'en-tête (header) de la page -->
         <?php include('../includes/header.php'); ?>
 
         <main class="main">
             <section class="section">
+                <!-- Slider d'images -->
                 <div class="image-slider">
                     <div class="slider-wrapper">
                         <img src="../assets/img/index_img_1.jpg" alt="Image 1" class="slider-image">
@@ -43,6 +49,7 @@ $recipes = $recipesController->getLatestRecipes();
                 </div>
 
                 <h1 class="title">Dernières recettes ajoutées</h1>
+                <!-- Liste des cartes représentant les recettes -->
                 <div class="card-list">
                     <?php foreach ($recipes as $recipe): ?>
 
@@ -56,7 +63,7 @@ $recipes = $recipesController->getLatestRecipes();
                 </div>
             </section>
         </main>
-
+        <!-- Inclusion du pied de page (footer) de la page -->
         <?php include('../includes/footer.php'); ?>
         <div>
 </body>
@@ -64,6 +71,7 @@ $recipes = $recipesController->getLatestRecipes();
 </html>
 
 <style>
+    /* Style pour le slider d'images */
     .image-slider {
         position: relative;
         width: 100%;
@@ -74,17 +82,20 @@ $recipes = $recipesController->getLatestRecipes();
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
+    /* Conteneur des images du slider */
     .slider-wrapper {
         display: flex;
         transition: transform 0.6s ease-in-out;
     }
 
+    /* Style des images du slider */
     .slider-image {
         min-width: 100%;
         height: 300px;
         object-fit: cover;
     }
 
+    /* Boutons de navigation du slider */
     .prev-button,
     .next-button {
         position: absolute;
@@ -109,6 +120,7 @@ $recipes = $recipesController->getLatestRecipes();
         right: 15px;
     }
 
+    /* Effet de survol des boutons de navigation */
     .prev-button:hover,
     .next-button:hover {
         background-color: rgba(0, 0, 0, 0.8);
@@ -124,6 +136,7 @@ $recipes = $recipesController->getLatestRecipes();
         gap: 8px;
     }
 
+    /* Style de chaque dot */
     .slider-dot {
         width: 10px;
         height: 10px;
@@ -133,22 +146,25 @@ $recipes = $recipesController->getLatestRecipes();
         transition: background-color 0.3s ease;
     }
 
+    /* Style du dot actif */
     .slider-dot.active {
         background-color: #007bff;
     }
 
-
+    /* Style de la section contenant les recettes */
     .section {
         max-width: 1200px;
         margin: 0 auto;
     }
 
+    /* Style du titre des recettes */
     .title {
         margin-top: 24px;
     }
 </style>
 
 <script>
+    // Sélection des éléments DOM
     const sliderWrapper = document.querySelector('.slider-wrapper');
     const sliderImages = document.querySelectorAll('.slider-image');
     const prevButton = document.querySelector('.prev-button');
@@ -173,6 +189,7 @@ $recipes = $recipesController->getLatestRecipes();
     document.querySelector('.image-slider').appendChild(dotsContainer);
     const dots = document.querySelectorAll('.slider-dot');
 
+    // Fonction pour mettre à jour le slider
     function updateSlider(index) {
         const width = sliderImages[0].clientWidth;
         sliderWrapper.style.transform = `translateX(-${index * width}px)`;
@@ -180,11 +197,13 @@ $recipes = $recipesController->getLatestRecipes();
         dots[index].classList.add('active');
     }
 
+    // Fonction pour passer à l'image suivante
     function nextSlide() {
         currentIndex = (currentIndex + 1) % totalImages;
         updateSlider(currentIndex);
     }
 
+    // Fonction pour revenir à l'image précédente
     function prevSlide() {
         currentIndex = (currentIndex - 1 + totalImages) % totalImages;
         updateSlider(currentIndex);

@@ -1,9 +1,14 @@
 <?php
+
+// Inclusion du modèle User (classe représentant un utilisateur)
 include_once('../models/user.php');
 
+// Récupération de l'URL de la requête
 $requestUrl = $_SERVER['REQUEST_URI'];
 
+// Démarrage de la session utilisateur
 session_start();
+// Récupération des informations de l'utilisateur connecté depuis la session
 $userSession = $_SESSION['user'];
 
 ?>
@@ -59,12 +64,16 @@ $userSession = $_SESSION['user'];
 </nav>
 
 <script>
-    /* When the user clicks on the button, toggle between hiding and showing the dropdown content */
+    /**
+     * Fonction pour afficher ou masquer le menu déroulant lorsque l'utilisateur clique sur le bouton.
+     */
     function openDropdown() {
         document.getElementById("dropdown").classList.toggle("show");
     }
 
-    // Close the dropdown menu if the user clicks outside of it
+    /**
+     * Ferme le menu déroulant si l'utilisateur clique en dehors de celui-ci.
+     */
     window.onclick = function(event) {
         if (!event.target.matches('.dropbtn')) {
             var dropdowns = document.getElementsByClassName("dropdown-content");
