@@ -51,23 +51,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php include('../includes/header.php'); ?>
 
         <main class="main">
-            <form action="../pages/signup.php" method="POST" class="signup-form">
-                <label for="username">Nom d'utilisateur</label>
-                <input type="text" name="username" />
+            <section>
+                <h1 class="title">Inscription</h1>
+                <form action="../pages/signup.php" method="POST" class="signup-form">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text" name="username" class="input-field" />
 
-                <label for="email">Email</label>
-                <input type="email" name="email" />
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="input-field" />
 
-                <label for="password">Mot de passe</label>
-                <input type="password" name="password" />
+                    <label for="password">Mot de passe</label>
+                    <input type="password" name="password" class="input-field" />
 
-                <? if ($errorMessage != ''): ?>
-                    <p class="error-message"><?= $errorMessage ?></p>
-                <? endif ?>
+                    <? if ($errorMessage != ''): ?>
+                        <p class="error-message"><?= $errorMessage ?></p>
+                    <? endif ?>
 
-                <button>Créer</button>
-            </form>
-
+                    <button class="login-button-inscription">Créer</button>
+                </form>
+            </section>
         </main>
 
         <?php include('../includes/footer.php'); ?>
@@ -80,21 +82,58 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     .main {
         display: flex;
         justify-content: center;
-        align-items: start;
-        margin: 24px 0;
+        align-items: flex-start;
+        margin-top: 50px;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
     }
 
     .signup-form {
         display: flex;
         flex-direction: column;
-        gap: 6px;
-        background-color: #fff;
+        gap: 12px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .signup-form label {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .input-field {
+        padding: 10px;
+        font-size: 14px;
         border: 1px solid #ccc;
-        padding: 12px 24px;
+        border-radius: 6px;
+        transition: border-color 0.3s ease;
     }
 
     .error-message {
-        color: #c42312;
+        color: #e63946;
         font-weight: bold;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .login-button-inscription {
+        background-color: #EBB231;
+        color: white;
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
     }
 </style>
