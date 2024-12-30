@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php include('../includes/header.php'); ?>
 
         <main class="main">
+            <h1 class="title">Nouvelle recette</h1>
             <form id="recipeForm" method="POST" enctype="multipart/form-data">
                 <div class="form-left">
                     <div class="form-group">

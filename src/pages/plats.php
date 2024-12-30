@@ -1,18 +1,10 @@
 <?php
 include_once("../includes/db.php");
 
-include_once("../models/user.php");
 include_once("../controllers/recipes.php");
 
-session_start();
-$user = $_SESSION['user'];
-if ($user == NULL) {
-    header('Location: ../pages');
-    die();
-}
-
-$recipesControler = new RecipesController($db);
-$recipes = $recipesControler->getBookmarkedRecipes($user->getId());
+$recipesController = new RecipesController($db);
+$recipes = $recipesController->getByCategory('main-course');
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +21,7 @@ $recipes = $recipesControler->getBookmarkedRecipes($user->getId());
 
     <link rel="stylesheet" href="../assets/styles.css" />
 
-    <title>AjiBook - Mes favoris</title>
+    <title>AjiBook - Plats principaux</title>
 </head>
 
 <body>
@@ -38,7 +30,7 @@ $recipes = $recipesControler->getBookmarkedRecipes($user->getId());
 
         <main class="main">
             <section class="section">
-                <h1 class="title">Mes favoris</h1>
+                <h1 class="title">Recettes plats principaux</h1>
                 <div class="card-list">
                     <?php foreach ($recipes as $recipe): ?>
 

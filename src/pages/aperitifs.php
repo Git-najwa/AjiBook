@@ -29,17 +29,20 @@ $recipes = $recipesController->getByCategory('appetizer');
         <?php include('../includes/header.php'); ?>
 
         <main class="main">
-            <div class="card-list">
-                <?php foreach ($recipes as $recipe): ?>
+            <section class="section">
+                <h1 class="title">Recettes appéritif ou buffet</h1>
+                <div class="card-list">
+                    <?php foreach ($recipes as $recipe): ?>
 
-                    <a href="../pages/recipe.php?id=<?= $recipe->getId() ?>" class="card-item">
-                        <img src="../assets/img/acrademorue.jpg" alt="Card Image">
-                        <span class="<?= $recipe->getCategory() ?>"><?= $recipe->getTranslatedCategory() ?></span>
-                        <h3><?= $recipe->getTitle() ?> </h3>
-                    </a>
+                        <a href="../pages/recipe.php?id=<?= $recipe->getId() ?>" class="card-item">
+                            <img src="../assets/img/acrademorue.jpg" alt="Card Image">
+                            <span class="<?= $recipe->getCategory() ?>"><?= $recipe->getTranslatedCategory() ?></span>
+                            <h3><?= $recipe->getTitle() ?> </h3>
+                        </a>
 
-                <?php endforeach ?>
-            </div>
+                    <?php endforeach ?>
+                </div>
+            </section>
         </main>
 
         <?php include('../includes/footer.php'); ?>

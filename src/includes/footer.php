@@ -2,29 +2,28 @@
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-about">
-            <h3>À propos</h3>
-            <p>
-                Bienvenue sur notre blog de cuisine ! Découvrez des recettes
-                savoureuses, des astuces culinaires et bien plus encore.
-            </p>
+            <div class="footer-left">
+                <img src=" ../assets/img/logo - Copie.png" alt="Logo" class="footer-logo" />
+
+            </div>
         </div>
-        <div class="footer-links">
-            <h3>Liens utiles</h3>
-            <ul>
-                <li><a href="#">À propos</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Recettes</a></li>
-            </ul>
+        <div>
+
         </div>
-        <div class="footer-newsletter">
-            <h3>Newsletter</h3>
-            <form id="newsletter-form">
-                <input type="email" placeholder="Votre email" required />
-                <button type="submit">S'inscrire</button>
-            </form>
+        <div>
+            <h3>A propos</h3>
+            <p>AjiBook est né du besoin de créer une plateforme où les amateurs de cuisine peuvent partager et organiser leurs recettes préférées, en mettant en avant la diversité des saveurs du monde entier.</p>
         </div>
+
     </div>
     <div class="footer-bottom">
         <p>&copy; 2024 Blog de Cuisine. Tous droits réservés.</p>
     </div>
 </footer>
+
+<style>
+    .footer-logo {
+        max-width: 250px;
+        margin-left: 50px;
+    }
+</style>
