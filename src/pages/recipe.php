@@ -42,6 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Suppression du favori de l'utilisateur
         $bookmarksController->delete($userSession->getId(), $recipe->getId());
     }
+    // Si l'action est de supprimer la recette
+    else if ($action == "delete") {
+        $recipesController->delete($recipe->getId());
+        header('Location: ../pages');
+        die();
+    }
 }
 
 // Récupération des favoris de l'utilisateur si celui-ci est connecté
@@ -99,17 +105,27 @@ foreach ($bookmarks as $bookmark) {
                     <div class="title-bar">
                         <h1><?= $recipe->getTitle() ?></h1>
                         <!-- Formulaire de gestion des favoris uniquement si l'utilisateur est connecté -->
-                        <? if ($userSession != null): ?>
-                            <form method="POST" action="../pages/recipe.php?id=<?= $recipe->getId() ?>">
-                                <input type="hidden" name="action" value="<?= $isBookmarked ? 'remove' : 'add' ?>">
-                                <!-- Bouton pour ajouter ou retirer un favori -->
-                                <button class="bookmark-button <?= $isBookmarked ? 'bookmarked' : '' ?>">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
-                                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-                                    </svg>
-                                </button>
-                            </form>
-                        <? endif ?>
+                        <div class="actions">
+
+                            <? if ($userSession != null): ?>
+                                <form method="POST" action="../pages/recipe.php?id=<?= $recipe->getId() ?>">
+                                    <input type="hidden" name="action" value="<?= $isBookmarked ? 'remove' : 'add' ?>">
+                                    <!-- Bouton pour ajouter ou retirer un favori -->
+                                    <button class="bookmark-button <?= $isBookmarked ? 'bookmarked' : '' ?>">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
+                                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                                        </svg>
+                                    </button>
+                                </form>
+
+                                <? if ($userSession->getId() == $recipe->getUsersId()): ?>
+                                    <form method="POST" action="../pages/recipe.php?id=<?= $recipe->getId() ?>">
+                                        <input type="hidden" name="action" value="delete" />
+                                        <button class="button">Supprimer</button>
+                                    </form>
+                                <? endif ?>
+                            <? endif ?>
+                        </div>
                     </div>
                     <!-- Affichage des tags de la recette (catégorie et auteur) -->
                     <div id="tags">
@@ -166,6 +182,21 @@ foreach ($bookmarks as $bookmark) {
         align-items: center;
         justify-content: space-between;
     }
+
+    .actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .button {
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        transition: border-color 0.3s ease;
+    }
+
 
     .bookmark-button {
         background: none;

@@ -205,4 +205,16 @@ class RecipesController
         // Retourne l'ID de la recette nouvellement insérée
         return $this->db->lastInsertId();
     }
+
+
+    /**
+     * Méthode pour supprimer une recette
+     * 
+     * @param int $id L'identifiant de la recette à supprimer
+     */
+    public function delete($id)
+    {
+        // Exécution de la requête SQL pour supprimer la recette
+        $this->db->query('DELETE FROM recipes WHERE id = :id')->execute(['id' => $id]);
+    }
 }
