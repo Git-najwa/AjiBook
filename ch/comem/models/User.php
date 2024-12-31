@@ -1,5 +1,7 @@
 <?php
 
+namespace ch\comem\models;
+
 class User
 {
 

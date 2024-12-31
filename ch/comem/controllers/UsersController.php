@@ -1,5 +1,11 @@
 <?php
 
+namespace ch\comem\controllers;
+
+use PDO;
+use ch\comem\DB;
+use ch\comem\models\User;
+
 // Contrôleur pour la gestion des utilisateurs
 class UsersController
 {
@@ -8,12 +14,10 @@ class UsersController
 
     /**
      * Constructeur pour initialiser la connexion à la base de données.
-     *
-     * @param PDO $db Une instance de la connexion PDO à la base de données.
      */
-    public function __construct($db)
+    public function __construct(DB $db)
     {
-        $this->db = $db;
+        $this->db = $db->getDB();
     }
 
     /**

@@ -1,7 +1,10 @@
 <?php
 
-// Inclusion du modèle Bookmark pour l'utiliser dans ce contrôleur
-include_once("../models/bookmark.php");
+namespace ch\comem\controllers;
+
+use PDO;
+use ch\comem\DB;
+use ch\comem\models\Bookmark;
 
 class BookmarksController
 {
@@ -9,9 +12,9 @@ class BookmarksController
     private PDO $db;
 
     // Constructeur qui initialise la connexion à la base de données
-    public function __construct(PDO $db)
+    public function __construct(DB $db)
     {
-        $this->db = $db;
+        $this->db = $db->getDB();
     }
 
     /**

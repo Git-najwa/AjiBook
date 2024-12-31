@@ -1,7 +1,10 @@
 <?php
 
-// Inclusion du modèle Recipe pour pouvoir l'utiliser dans ce contrôleur
-include_once("../models/recipe.php");
+namespace ch\comem\controllers;
+
+use PDO;
+use ch\comem\DB;
+use ch\comem\models\Recipe;
 
 class RecipesController
 {
@@ -9,9 +12,9 @@ class RecipesController
     private PDO $db;
 
     // Constructeur qui initialise la connexion à la base de données
-    public function __construct(PDO $db)
+    public function __construct(DB $db)
     {
-        $this->db = $db; // On assigne l'objet PDO à la propriété $db
+        $this->db = $db->getDB(); // On assigne l'objet PDO à la propriété $db
     }
 
     /**

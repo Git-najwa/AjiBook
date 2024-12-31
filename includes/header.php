@@ -1,8 +1,5 @@
 <?php
 
-// Inclusion du modèle User (classe représentant un utilisateur)
-include_once('../models/user.php');
-
 // Récupération de l'URL de la requête
 $requestUrl = $_SERVER['REQUEST_URI'];
 
@@ -15,28 +12,28 @@ $userSession = $_SESSION['user'];
 
 <!-- Barre supérieure -->
 <div class="top-bar">
-    <a class="logo" href="../pages">
-        <img src=" ../assets/img/logo.png" alt="Logo" />
+    <a class="logo" href="./">
+        <img src="./assets/img/logo.png" alt="Logo" />
     </a>
     <div class="search-bar">
         <input type="text" placeholder="Recherche..." />
         <button>
-            <img src="../assets/img/search-icon.png" alt="Rechercher" />
+            <img src="./assets/img/search-icon.png" alt="Rechercher" />
         </button>
     </div>
     <? if ($userSession == null): ?>
         <div class="login-button">
-            <a href="../pages/login.php">Connexion</a>
+            <a href="./login.php">Connexion</a>
         </div>
     <? else: ?>
         <div class="dropdown">
-            <button onclick="openDropdown()" class="dropbtn"><?= $userSession->getUsername() ?></button>
+            <button onclick="openDropdown()" class="dropbtn"><?= $userSession ? $userSession->getUsername() : "" ?></button>
             <div id="dropdown" class="dropdown-content">
-                <a href="../pages/profil.php">Mon profil</a>
-                <a href="../pages/new-recipe.php">Nouvelle recette</a>
-                <a href="../pages/my-recipes.php">Mes recettes</a>
-                <a href="../pages/my-bookmarks.php">Mes favoris</a>
-                <a href="../pages/logout.php">Déconnexion</a>
+                <a href="./profil.php">Mon profil</a>
+                <a href="./new-recipe.php">Nouvelle recette</a>
+                <a href="./my-recipes.php">Mes recettes</a>
+                <a href="./my-bookmarks.php">Mes favoris</a>
+                <a href="./logout.php">Déconnexion</a>
             </div>
         </div>
     <? endif ?>
@@ -46,19 +43,19 @@ $userSession = $_SESSION['user'];
 <nav class="menu">
     <ul>
         <li>
-            <a href="../pages/aperitifs.php" class="<?= str_ends_with($requestUrl, "aperitifs.php") ? 'selected-item' : '' ?>">Apéritifs</a>
+            <a href="./aperitifs.php" class="<?= str_ends_with($requestUrl, "aperitifs.php") ? 'selected-item' : '' ?>">Apéritifs</a>
         </li>
         <li>
-            <a href="../pages/entrees.php" class="<?= str_ends_with($requestUrl, "entrees.php") ? 'selected-item' : '' ?>">Entrées</a>
+            <a href="./entrees.php" class="<?= str_ends_with($requestUrl, "entrees.php") ? 'selected-item' : '' ?>">Entrées</a>
         </li>
         <li>
-            <a href="../pages/plats.php" class="<?= str_ends_with($requestUrl, "plats.php") ? 'selected-item' : '' ?>">Plats</a>
+            <a href="./plats.php" class="<?= str_ends_with($requestUrl, "plats.php") ? 'selected-item' : '' ?>">Plats</a>
         </li>
         <li>
-            <a href="../pages/desserts.php" class="<?= str_ends_with($requestUrl, "desserts.php") ? 'selected-item' : '' ?>">Desserts</a>
+            <a href="./desserts.php" class="<?= str_ends_with($requestUrl, "desserts.php") ? 'selected-item' : '' ?>">Desserts</a>
         </li>
         <li>
-            <a href="../pages/boissons.php" class="<?= str_ends_with($requestUrl, "boissons.php") ? 'selected-item' : '' ?>">Boissons</a>
+            <a href="./boissons.php" class="<?= str_ends_with($requestUrl, "boissons.php") ? 'selected-item' : '' ?>">Boissons</a>
         </li>
     </ul>
 </nav>

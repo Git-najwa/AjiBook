@@ -1,10 +1,14 @@
 <?php
-// Inclusion des fichiers nécessaires
-include_once("../includes/db.php");
-include_once("../models/user.php");
-include_once("../controllers/recipes.php");
-include_once("../controllers/users.php");
-include_once("../controllers/bookmarks.php");
+
+require_once('./config/autoload.php');
+
+use ch\comem\controllers\RecipesController;
+use ch\comem\controllers\UsersController;
+use ch\comem\controllers\BookmarksController;
+use ch\comem\models\Bookmark;
+use ch\comem\DB;
+
+$db = new DB();
 
 // Récupération de l'ID de la recette depuis l'URL
 $id = $_GET['id'];
@@ -28,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $action = $_POST['action']; // Récupération de l'action (ajouter ou retirer)
     if ($userSession == NULL) {
         // Si l'utilisateur n'est pas connecté, rediriger vers la page d'accueil
-        header('Location: ../pages');
+        header('Location: ./');
         die();
     }
     // Si l'action est d'ajouter un favori
@@ -45,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Si l'action est de supprimer la recette
     else if ($action == "delete") {
         $recipesController->delete($recipe->getId());
-        header('Location: ../pages');
+        header('Location: ./');
         die();
     }
 }
@@ -81,7 +85,7 @@ foreach ($bookmarks as $bookmark) {
         href="https://fonts.googleapis.com/css2?family=Gruppo&display=swap"
         rel="stylesheet" />
 
-    <link rel="stylesheet" href="../assets/styles.css" />
+    <link rel="stylesheet" href="./assets/styles.css" />
 
     <title>AjiBook - <?= $recipe->getTitle() ?></title>
 </head>
@@ -89,7 +93,7 @@ foreach ($bookmarks as $bookmark) {
 <body>
     <div class="main-container">
         <!-- Inclusion de l'en-tête du site -->
-        <?php include('../includes/header.php'); ?>
+        <?php include('./includes/header.php'); ?>
 
         <main class="main">
             <div id="main-container">
@@ -108,7 +112,7 @@ foreach ($bookmarks as $bookmark) {
                         <div class="actions">
 
                             <? if ($userSession != null): ?>
-                                <form method="POST" action="../pages/recipe.php?id=<?= $recipe->getId() ?>">
+                                <form method="POST" action="/recipe.php?id=<?= $recipe->getId() ?>">
                                     <input type="hidden" name="action" value="<?= $isBookmarked ? 'remove' : 'add' ?>">
                                     <!-- Bouton pour ajouter ou retirer un favori -->
                                     <button class="bookmark-button <?= $isBookmarked ? 'bookmarked' : '' ?>">
@@ -119,8 +123,8 @@ foreach ($bookmarks as $bookmark) {
                                 </form>
 
                                 <? if ($userSession->getId() == $recipe->getUsersId()): ?>
-                                    <a class="button" href="../pages/update-recipe.php?id=<?= $recipe->getId() ?>">Modifier</a>
-                                    <form method="POST" action="../pages/recipe.php?id=<?= $recipe->getId() ?>">
+                                    <a class="button" href="./update-recipe.php?id=<?= $recipe->getId() ?>">Modifier</a>
+                                    <form method="POST" action="./recipe.php?id=<?= $recipe->getId() ?>">
                                         <input type="hidden" name="action" value="delete" />
                                         <button class="button">Supprimer</button>
                                     </form>
@@ -152,7 +156,7 @@ foreach ($bookmarks as $bookmark) {
             </div>
         </main>
         <!-- Inclusion du pied de page du site -->
-        <?php include('../includes/footer.php'); ?>
+        <?php include('./includes/footer.php'); ?>
     </div>
 </body>
 

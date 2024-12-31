@@ -1,10 +1,12 @@
 <?php
-// Inclusion du fichier de configuration pour la base de données
-include_once('../includes/db.php');
 
-// Inclusion des classes nécessaires pour gérer les utilisateurs
-include_once('../models/user.php');
-include_once('../controllers/users.php');
+require_once('./config/autoload.php');
+
+use ch\comem\DB;
+use ch\comem\controllers\UsersController;
+use ch\comem\models\User;
+
+$db = new DB();
 
 // Création d'une instance du contrôleur des utilisateurs
 $usersController = new UsersController($db);
@@ -51,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         href="https://fonts.googleapis.com/css2?family=Gruppo&display=swap"
         rel="stylesheet" />
 
-    <link rel="stylesheet" href="../assets/styles.css" />
+    <link rel="stylesheet" href="./assets/styles.css" />
 
     <title>AjiBook - Créer un compte</title>
 </head>
@@ -60,13 +62,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="main-container">
         <!-- Inclusion de l'en-tête du site -->
-        <?php include('../includes/header.php'); ?>
+        <?php include('./includes/header.php'); ?>
 
         <main class="main">
             <section>
                 <h1 class="title">Inscription</h1>
                 <!-- Formulaire d'inscription -->
-                <form action="../pages/signup.php" method="POST" class="signup-form">
+                <form action="./signup.php" method="POST" class="signup-form">
                     <!-- Champ pour le nom d'utilisateur -->
                     <label for="username">Nom d'utilisateur</label>
                     <input type="text" name="username" class="input-field" />
@@ -91,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </main>
 
         <!-- Inclusion du pied de page du site -->
-        <?php include('../includes/footer.php'); ?>
+        <?php include('./includes/footer.php'); ?>
     </div>
 </body>
 

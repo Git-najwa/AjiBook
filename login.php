@@ -1,10 +1,11 @@
 <?php
-// Inclusion de la configuration de la base de données
-include_once('../includes/db.php');
 
-// Inclusion des modèles et contrôleurs pour les utilisateurs
-include_once('../models/user.php');
-include_once('../controllers/users.php');
+require_once('./config/autoload.php');
+
+use ch\comem\DB;
+use ch\comem\controllers\UsersController;
+
+$db = new DB();
 
 // Création d'une instance du contrôleur des utilisateurs
 $usersController = new UsersController($db);
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user'] = $user;
 
             // Redirection vers la page d'accueil après une connexion réussie
-            header('Location: ../pages/');
+            header('Location: ./');
         } else {
             // Message d'erreur si l'utilisateur n'existe pas ou le mot de passe est incorrect
             $errorMessage = "Erreur de connexion";
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         href="https://fonts.googleapis.com/css2?family=Gruppo&display=swap"
         rel="stylesheet" />
 
-    <link rel="stylesheet" href="../assets/styles.css" />
+    <link rel="stylesheet" href="./assets/styles.css" />
 
     <title>AjiBook - Se connecter</title>
 </head>
@@ -62,13 +63,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="main-container">
         <!-- Inclusion de l'en-tête de la page -->
-        <?php include('../includes/header.php'); ?>
+        <?php include('./includes/header.php'); ?>
 
         <main class="main">
             <section>
                 <h1 class="title">Connexion</h1>
                 <!-- Formulaire de connexion avec méthode POST -->
-                <form action="../pages/login.php" method="POST" class="login-form">
+                <form action="./login.php" method="POST" class="login-form">
 
                     <!-- Champ pour le nom d'utilisateur -->
                     <label for="username">Nom d'utilisateur</label>
@@ -86,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <!-- Lien vers la page d'inscription si l'utilisateur n'a pas encore de compte -->
                     <div>
                         <p class="signup-prompt">
-                            Pas encore de compte ? <a href="../pages/signup.php" class="signup-link">S'inscrire</a>
+                            Pas encore de compte ? <a href="./signup.php" class="signup-link">S'inscrire</a>
                         </p>
                     </div>
 
@@ -97,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </main>
 
         <!-- Inclusion du pied de page -->
-        <?php include('../includes/footer.php'); ?>
+        <?php include('./includes/footer.php'); ?>
     </div>
 </body>
 

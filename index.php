@@ -1,9 +1,11 @@
 <?php
-// Inclusion du fichier de configuration de la base de données
-include("../includes/db.php");
 
-// Inclusion du contrôleur des recettes
-include_once("../controllers/recipes.php");
+require_once('./config/autoload.php');
+
+use ch\comem\DB;
+use ch\comem\controllers\RecipesController;
+
+$db = new DB();
 
 // Création d'une instance de RecipesController avec la connexion à la base de données
 $recipesController = new RecipesController($db);
@@ -23,7 +25,7 @@ $recipes = $recipesController->getLatestRecipes();
         href="https://fonts.googleapis.com/css2?family=Gruppo&display=swap"
         rel="stylesheet" />
 
-    <link rel="stylesheet" href="../assets/styles.css" />
+    <link rel="stylesheet" href="./assets/styles.css" />
 
     <title>AjiBook</title>
 </head>
@@ -31,17 +33,17 @@ $recipes = $recipesController->getLatestRecipes();
 <body>
     <div class="main-container">
         <!-- Inclusion de l'en-tête (header) de la page -->
-        <?php include('../includes/header.php'); ?>
+        <?php include('./includes/header.php'); ?>
 
         <main class="main">
             <section class="section">
                 <!-- Slider d'images -->
                 <div class="image-slider">
                     <div class="slider-wrapper">
-                        <img src="../assets/img/index_img_1.jpg" alt="Image 1" class="slider-image">
-                        <img src="../assets/img/index_img_2.jpg" alt="Image 2" class="slider-image">
-                        <img src="../assets/img/index_img_3.jpg" alt="Image 3" class="slider-image">
-                        <img src="../assets/img/index_img_4.jpg" alt="Image 4" class="slider-image">
+                        <img src="./assets/img/index_img_1.jpg" alt="Image 1" class="slider-image">
+                        <img src="./assets/img/index_img_2.jpg" alt="Image 2" class="slider-image">
+                        <img src="./assets/img/index_img_3.jpg" alt="Image 3" class="slider-image">
+                        <img src="./assets/img/index_img_4.jpg" alt="Image 4" class="slider-image">
 
                     </div>
                     <button class="prev-button">❮</button>
@@ -53,7 +55,7 @@ $recipes = $recipesController->getLatestRecipes();
                 <div class="card-list">
                     <?php foreach ($recipes as $recipe): ?>
 
-                        <a href="../pages/recipe.php?id=<?= $recipe->getId() ?>" class="card-item">
+                        <a href="./recipe.php?id=<?= $recipe->getId() ?>" class="card-item">
                             <img src=<?= $recipe->getImageUrl() ?> alt="Card Image">
                             <span class="<?= $recipe->getCategory() ?>"><?= $recipe->getTranslatedCategory() ?></span>
                             <h3><?= $recipe->getTitle() ?> </h3>
@@ -64,7 +66,7 @@ $recipes = $recipesController->getLatestRecipes();
             </section>
         </main>
         <!-- Inclusion du pied de page (footer) de la page -->
-        <?php include('../includes/footer.php'); ?>
+        <?php include('./includes/footer.php'); ?>
         <div>
 </body>
 

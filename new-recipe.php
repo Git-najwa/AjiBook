@@ -1,24 +1,24 @@
 <?php
-// Inclusion des fichiers nécessaires pour la base de données et la logique des recettes
-include_once("../includes/db.php");
-include_once("../controllers/recipes.php");
-include_once('../models/user.php');
+
+require_once('./config/autoload.php');
+
+use ch\comem\DB;
+use ch\comem\controllers\RecipesController;
+use ch\comem\models\Recipe;
+
+$db = new DB();
 
 session_start();
 
 // Vérification si l'utilisateur est connecté
 $user = $_SESSION['user'];
 if ($user == NULL) {
-    header('Location: ../pages');
+    header('Location: ./');
     die();
 }
 
-$id = $_GET['id'];
-
 // Création d'une instance du contrôleur de recettes
 $recipesController = new RecipesController($db);
-
-$recipe = $recipesController->getById($id);
 
 // Traitement du formulaire lorsqu'une requête POST est reçu
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -29,20 +29,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $category = $_POST['category'];
     $usersId = $user->getId();
 
-    $path = $recipe->getImageUrl();
-    if ($_FILES['imageUpload']['size'] != 0) {
-        // Traitement de l'image téléchargée
-        $extension = explode('.', $_FILES['imageUpload']['name'])[1];
-        $path = '../uploads/' . basename(md5($_FILES['imageUpload']['tmp_name'])) . '.' . $extension;
-        move_uploaded_file($_FILES['imageUpload']['tmp_name'], $path);
-    }
+    // Traitement de l'image téléchargée
+    $extension = explode('.', $_FILES['imageUpload']['name'])[1];
+    $path = './uploads/' . basename(md5($_FILES['imageUpload']['tmp_name'])) . '.' . $extension;
+    move_uploaded_file($_FILES['imageUpload']['tmp_name'], $path);
 
     // Création d'une nouvelle instance de la recette avec les données soumises
-    $recipe = new Recipe($id, $title, $ingredients, $instructions, $category, 0, $path, $usersId);
+    $recipe = new Recipe(0, $title, $ingredients, $instructions, $category, 0, $path, $usersId);
     // Sauvegarde de la recette dans la base de données
-    $recipesController->update($recipe);
+    $id = $recipesController->create($recipe);
     // Redirection vers la page de la recette après l'enregistrement
-    header('Location: ../pages/recipe.php?id=' . $id);
+    header('Location: ./recipe.php?id=' . $id);
 }
 
 ?>
@@ -59,24 +56,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         href="https://fonts.googleapis.com/css2?family=Gruppo&display=swap"
         rel="stylesheet" />
 
-    <link rel="stylesheet" href="../assets/styles.css" />
+    <link rel="stylesheet" href="./assets/styles.css" />
 
-    <title>AjiBook - Modifier la recette</title>
+    <title>AjiBook - Créer une recette</title>
 </head>
 
 <body>
     <div class="main-container">
         <!-- Inclusion de l'en-tête -->
-        <?php include('../includes/header.php'); ?>
+        <?php include('./includes/header.php'); ?>
 
         <main class="main">
-            <h1 class="title">Modifier la recette</h1>
+            <h1 class="title">Nouvelle recette</h1>
             <!-- Formulaire de création de recette -->
             <form id="recipeForm" method="POST" enctype="multipart/form-data">
                 <div class="form-left">
                     <div class="form-group">
                         <label for="title">Titre :</label>
-                        <input type="text" id="title" name="title" placeholder="Titre de la recette" value="<?= $recipe->getTitle() ?>" required>
+                        <input type="text" id="title" name="title" placeholder="Titre de la recette" required>
                     </div>
                     <div class="form-group">
                         <!-- Choix de la catégorie de la recette -->
@@ -84,30 +81,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="categories">
                             <fieldset class="category">
                                 <label for="appetizer">Apéritif</label>
-                                <input type="radio" name="category" value="appetizer" id="appetizer" <?= $recipe->getCategory() == "appetizer" ? "checked" : "" ?>>
+                                <input type="radio" name="category" value="appetizer" id="appetizer">
                             </fieldset>
                             <fieldset class="category">
                                 <label for="starter">Entrée</label>
-                                <input type="radio" name="category" value="starter" id="starter" <?= $recipe->getCategory() == "starter" ? "checked" : "" ?>>
+                                <input type="radio" name="category" value="starter" id="starter">
                             </fieldset>
                             <fieldset class="category">
                                 <label for="main-course">Plat</label>
-                                <input type="radio" name="category" value="main-course" id="main-course" <?= $recipe->getCategory() == "main-course" ? "checked" : "" ?>>
+                                <input type="radio" name="category" value="main-course" id="main-course">
                             </fieldset>
                             <fieldset class="category">
                                 <label for="desert">Dessert</label>
-                                <input type="radio" name="category" value="desert" id="desert" <?= $recipe->getCategory() == "desert" ? "checked" : "" ?>>
+                                <input type="radio" name="category" value="desert" id="desert">
                             </fieldset>
                             <fieldset class="category">
                                 <label for="drink">Boisson</label>
-                                <input type="radio" name="category" value="drink" id="drink" <?= $recipe->getCategory() == "drink" ? "checked" : "" ?>>
+                                <input type="radio" name="category" value="drink" id="drink">
                             </fieldset>
                         </div>
                     </div>
                     <!-- Ingrédients de la recette -->
                     <div class="form-group">
                         <label for="ingredients">Ingrédients :</label>
-                        <input type="text" id="ingredients" name="ingredients" placeholder="Ex : 2 œufs, 100g de sucre" value="<?= $recipe->getIngredients() ?>" required>
+                        <input type="text" id="ingredients" name="ingredients" placeholder="Ex : 2 œufs, 100g de sucre" required>
                     </div>
                     <!-- Téléversement de l'image de la recette -->
                     <div class="form-group image-upload">
@@ -121,16 +118,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="form-right">
                     <div class="form-group">
                         <label for="instructions">Recette :</label>
-                        <textarea id="instructions" name="instructions" placeholder="Décrivez les étapes de la recette ici..." rows="10" required><?= $recipe->getInstructions() ?></textarea>
+                        <textarea id="instructions" name="instructions" placeholder="Décrivez les étapes de la recette ici..." rows="10" required></textarea>
                     </div>
                     <!-- Bouton de soumission -->
-                    <button type="submit" class="submit-btn">Modifier</button>
+                    <button type="submit" class="submit-btn">Publier</button>
                 </div>
             </form>
         </main>
 
         <!-- Inclusion du pied de page -->
-        <?php include('../includes/footer.php'); ?>
+        <?php include('./includes/footer.php'); ?>
     </div>
 </body>
 

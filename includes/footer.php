@@ -3,7 +3,7 @@
     <div class="footer-container">
         <div class="footer-about">
             <div class="footer-left">
-                <img src=" ../assets/img/logo - Copie.png" alt="Logo" class="footer-logo" />
+                <img src="./assets/img/logo - Copie.png" alt="Logo" class="footer-logo" />
 
             </div>
         </div>

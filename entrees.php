@@ -1,14 +1,16 @@
 <?php
-// Inclusion du fichier de configuration de la base de données
-include_once("../includes/db.php");
 
-// Inclusion du contrôleur de recettes
-include_once("../controllers/recipes.php");
+require_once('./config/autoload.php');
+
+use ch\comem\DB;
+use ch\comem\controllers\RecipesController;
+
+$db = new DB();
 
 // Création d'une instance du contrôleur RecipesController avec la connexion à la base de données
 $recipesController = new RecipesController($db);
 // Récupération des recettes de la catégorie "appetizer" (apéritifs)
-$recipes = $recipesController->getByCategory('drink');
+$recipes = $recipesController->getByCategory('starter');
 ?>
 
 <!DOCTYPE html>
@@ -23,23 +25,23 @@ $recipes = $recipesController->getByCategory('drink');
         href="https://fonts.googleapis.com/css2?family=Gruppo&display=swap"
         rel="stylesheet" />
 
-    <link rel="stylesheet" href="../assets/styles.css" />
+    <link rel="stylesheet" href="./assets/styles.css" />
 
-    <title>AjiBook - Boissons</title>
+    <title>AjiBook - Entrées</title>
 </head>
 
 <body>
     <div class="main-container">
         <!-- Inclusion du fichier d'en-tête (header) -->
-        <?php include('../includes/header.php'); ?>
+        <?php include('./includes/header.php'); ?>
 
         <main class="main">
             <section class="section">
-                <h1 class="title">Recettes de boissons</h1>
+                <h1 class="title">Recettes entrées</h1>
                 <div class="card-list">
                     <?php foreach ($recipes as $recipe): ?>
 
-                        <a href="../pages/recipe.php?id=<?= $recipe->getId() ?>" class="card-item">
+                        <a href="./recipe.php?id=<?= $recipe->getId() ?>" class="card-item">
                             <img src=<?= $recipe->getImageUrl() ?> alt="Card Image">
                             <span class="<?= $recipe->getCategory() ?>"><?= $recipe->getTranslatedCategory() ?></span>
                             <h3><?= $recipe->getTitle() ?> </h3>
@@ -51,7 +53,7 @@ $recipes = $recipesController->getByCategory('drink');
         </main>
 
         <!-- Inclusion du fichier de pied de page (footer) -->
-        <?php include('../includes/footer.php'); ?>
+        <?php include('./includes/footer.php'); ?>
     </div>
 </body>
 

@@ -1,17 +1,18 @@
-// Inclusion des fichiers nécessaires pour interagir avec la base de données et les modèles
 <?php
-// Inclusion des fichiers nécessaires pour interagir avec la base de données et les modèles
-include_once("../includes/db.php");
 
-include_once("../models/user.php");
-include_once("../controllers/recipes.php");
+require_once('./config/autoload.php');
+
+use ch\comem\DB;
+use ch\comem\controllers\RecipesController;
+
+$db = new DB();
 
 session_start();
 // Récupérer les informations de l'utilisateur stockées dans la session
 $user = $_SESSION['user'];
 // Vérifier si l'utilisateur est connecté (s'il n'est pas connecté, rediriger vers la page d'accueil)
 if ($user == NULL) {
-    header('Location: ../pages');
+    header('Location: ./');
     die();
 }
 
@@ -33,7 +34,7 @@ $recipes = $recipesController->getByUsersId($user->getId());
         href="https://fonts.googleapis.com/css2?family=Gruppo&display=swap"
         rel="stylesheet" />
 
-    <link rel="stylesheet" href="../assets/styles.css" />
+    <link rel="stylesheet" href="./assets/styles.css" />
 
     <title>AjiBook - Mes recettes</title>
 </head>
@@ -41,7 +42,7 @@ $recipes = $recipesController->getByUsersId($user->getId());
 <body>
     <div class="main-container">
         <!-- Inclusion de l'en-tête du site -->
-        <?php include('../includes/header.php'); ?>
+        <?php include('./includes/header.php'); ?>
 
         <main class="main">
             <section class="section">
@@ -50,7 +51,7 @@ $recipes = $recipesController->getByUsersId($user->getId());
                     <?php foreach ($recipes as $recipe): ?>
 
                         <!-- Pour chaque recette, un lien vers sa page dédiée -->
-                        <a href="../pages/recipe.php?id=<?= $recipe->getId() ?>" class="card-item">
+                        <a href="./recipe.php?id=<?= $recipe->getId() ?>" class="card-item">
                             <img src=<?= $recipe->getImageUrl() ?> alt="Card Image">
                             <span class="<?= $recipe->getCategory() ?>"><?= $recipe->getTranslatedCategory() ?></span>
                             <h3><?= $recipe->getTitle() ?> </h3>
@@ -62,7 +63,7 @@ $recipes = $recipesController->getByUsersId($user->getId());
         </main>
 
         <!-- Inclusion du pied de page -->
-        <?php include('../includes/footer.php'); ?>
+        <?php include('./includes/footer.php'); ?>
     </div>
 </body>
 
