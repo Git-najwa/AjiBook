@@ -107,11 +107,13 @@ $recipes = $recipesController->getLatestRecipes();
         color: white;
         border: none;
         font-size: 20px;
-        padding: 10px 15px;
+        padding: 14px 16px;
+        line-height: 13px;
         cursor: pointer;
-        z-index: 10;
         border-radius: 50%;
         transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
     }
 
     .prev-button {
