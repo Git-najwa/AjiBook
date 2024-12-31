@@ -188,7 +188,7 @@ class RecipesController
      * @param Recipe $recipe Un objet Recipe à enregistrer
      * @return int L'ID de la recette nouvellement insérée
      */
-    public function save(Recipe $recipe): int
+    public function create(Recipe $recipe): int
     {
         // Préparation de la requête SQL pour insérer une nouvelle recette
         $statement = $this->db->prepare('INSERT INTO recipes (title, ingredients, instructions, category, image_url, users_id) VALUES (:title, :ingredients, :instructions, :category, :image_url, :users_id)');
@@ -204,6 +204,19 @@ class RecipesController
 
         // Retourne l'ID de la recette nouvellement insérée
         return $this->db->lastInsertId();
+    }
+
+    public function update(Recipe $recipe)
+    {
+        $query = $this->db->query('UPDATE recipes SET title = :title, ingredients = :ingredients, instructions = :instructions, category = :category, image_url = :image_url WHERE id = :id');
+        $query->execute([
+            'id' => $recipe->getId(),
+            'title' => $recipe->getTitle(),
+            'ingredients' => $recipe->getIngredients(),
+            'instructions' => $recipe->getInstructions(),
+            'category' => $recipe->getCategory(),
+            'image_url' => $recipe->getImageUrl(),
+        ]);
     }
 
 

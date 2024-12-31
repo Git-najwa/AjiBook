@@ -119,6 +119,7 @@ foreach ($bookmarks as $bookmark) {
                                 </form>
 
                                 <? if ($userSession->getId() == $recipe->getUsersId()): ?>
+                                    <a class="button" href="../pages/update-recipe.php?id=<?= $recipe->getId() ?>">Modifier</a>
                                     <form method="POST" action="../pages/recipe.php?id=<?= $recipe->getId() ?>">
                                         <input type="hidden" name="action" value="delete" />
                                         <button class="button">Supprimer</button>
@@ -195,6 +196,10 @@ foreach ($bookmarks as $bookmark) {
         border: 1px solid #ccc;
         border-radius: 6px;
         transition: border-color 0.3s ease;
+        background: #f0f0f0;
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
     }
 
 
