@@ -15,6 +15,7 @@ AjiBook est une application web permettant aux utilisateurs de créer un compte,
 ## Fonctionnalités
 
 - Inscription des utilisateurs
+- Envoi d'email de confirmation d'inscription
 - Création, affichage et gestion des recettes
 - Ajout des recettes aux favoris
 - Système de gestion des erreurs et validation des formulaires
@@ -26,6 +27,8 @@ Le projet est divisé en plusieurs composants principaux :
 ### 1. **Inclusions des fichiers nécessaires**
 
 Les fichiers principaux sont inclus au début de chaque page PHP pour permettre la connexion à la base de données et la gestion des utilisateurs.
+
+Les différentes classes se chargent grâce à un autoload.
 
 - `db.php` : Gère la connexion à la base de données.
 - `user.php` : Contient la classe `User` pour gérer les utilisateurs.
