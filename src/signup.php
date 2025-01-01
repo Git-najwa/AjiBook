@@ -1,10 +1,17 @@
 <?php
 
+// Libraire permettant l'envoi de mail (Symfony Mailer)
+require_once './lib/vendor/autoload.php';
+
 require_once('./config/autoload.php');
 
 use ch\comem\DB;
 use ch\comem\controllers\UsersController;
 use ch\comem\models\User;
+
+use Symfony\Component\Mailer\Transport;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mime\Email;
 
 $db = new DB();
 
@@ -35,6 +42,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user = new User(0, $username, $email, $password);
             // Sauvegarder le nouvel utilisateur dans la base de données
             $usersController->save($user);
+
+            $transport = Transport::fromDsn('smtp://localhost:1025');
+            $mailer = new Mailer($transport);
+            $email = (new Email())
+                ->from('noreply@ajibook.ch')
+                ->to($email)
+                //->cc('cc@exemple.com')
+                //->bcc('bcc@exemple.com')
+                //->replyTo('replyto@exemple.com')
+                //->priority(Email::PRIORITY_HIGH)
+                ->subject('Création d\'un compte sur AjiBook')
+                ->text('Un peu de texte')
+                ->html('<h1>Un peu de html</h1>');
+
+            $result = $mailer->send($email);
+
+            header('Location: ./login.php');
         }
     }
 }
