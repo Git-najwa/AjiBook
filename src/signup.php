@@ -53,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 //->replyTo('replyto@exemple.com')
                 //->priority(Email::PRIORITY_HIGH)
                 ->subject('Création d\'un compte sur AjiBook')
-                ->text('Un peu de texte')
-                ->html('<h1>Un peu de html</h1>');
+                ->text('Bienvenue sur AjiBook')
+                ->html('<h1>Bienvenue sur AjiBook</h1>');
 
             $result = $mailer->send($email);
 

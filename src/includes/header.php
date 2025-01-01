@@ -15,12 +15,7 @@ $userSession = $_SESSION['user'];
     <a class="logo" href="./">
         <img src="./assets/img/logo.png" alt="Logo" />
     </a>
-    <div class="search-bar">
-        <input type="text" placeholder="Recherche..." />
-        <button>
-            <img src="./assets/img/search-icon.png" alt="Rechercher" />
-        </button>
-    </div>
+
     <? if ($userSession == null): ?>
         <div class="login-button">
             <a href="./login.php">Connexion</a>
@@ -29,7 +24,6 @@ $userSession = $_SESSION['user'];
         <div class="dropdown">
             <button onclick="openDropdown()" class="dropbtn"><?= $userSession ? $userSession->getUsername() : "" ?></button>
             <div id="dropdown" class="dropdown-content">
-                <a href="./profil.php">Mon profil</a>
                 <a href="./new-recipe.php">Nouvelle recette</a>
                 <a href="./my-recipes.php">Mes recettes</a>
                 <a href="./my-bookmarks.php">Mes favoris</a>
