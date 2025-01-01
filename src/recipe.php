@@ -112,7 +112,7 @@ foreach ($bookmarks as $bookmark) {
                         <div class="actions">
 
                             <? if ($userSession != null): ?>
-                                <form method="POST" action="/recipe.php?id=<?= $recipe->getId() ?>">
+                                <form method="POST" action="./recipe.php?id=<?= $recipe->getId() ?>">
                                     <input type="hidden" name="action" value="<?= $isBookmarked ? 'remove' : 'add' ?>">
                                     <!-- Bouton pour ajouter ou retirer un favori -->
                                     <button class="bookmark-button <?= $isBookmarked ? 'bookmarked' : '' ?>">
