@@ -151,7 +151,7 @@ foreach ($bookmarks as $bookmark) {
             <div id="recipe-details">
                 <h2>Recette</h2>
                 <p>
-                    <?= $recipe->getInstructions() ?>
+                <?= nl2br($recipe->getInstructions()) ?>
                 </p>
             </div>
         </main>
