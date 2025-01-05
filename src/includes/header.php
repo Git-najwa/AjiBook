@@ -6,11 +6,11 @@ $requestUrl = $_SERVER['REQUEST_URI'];
 // Démarrage de la session utilisateur
 session_start();
 // Récupération des informations de l'utilisateur connecté depuis la session
-//if (isset($_SESSION['user'])) {
+if (isset($_SESSION['user'])) {
     $userSession = $_SESSION['user'];
-//} else {
-  //  $userSession = null;
-//}
+} else {
+    $userSession = null;
+}
 
 ?>
 
